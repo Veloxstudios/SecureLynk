@@ -1,0 +1,306 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="tools-section">
+
+    <div class="tools-header">
+        <h1>Security Tools</h1>
+        <p class="auth-sub">Analyze. Encrypt. Scan.</p>
+    </div>
+
+    <div class="tools-tabs">
+        <button class="tab-btn active" onclick="switchTab('password')">
+            Password Checker
+        </button>
+        <button class="tab-btn" onclick="switchTab('encryption')">
+            Encryption
+        </button>
+        <button class="tab-btn" onclick="switchTab('portscan')">
+            Port Scanner
+        </button>
+    </div>
+
+    <!-- PASSWORD CHECKER -->
+
+    <div class="tool-panel active" id="tab-password">
+
+        <div class="auth-box" style="max-width:560px; margin:0 auto;">
+
+            <h2 style="font-style:italic; font-weight:300; margin-bottom:8px;">
+                Password Strength
+            </h2>
+
+            <p style="color:#555; font-size:12px; letter-spacing:2px;
+                text-transform:uppercase; margin-bottom:30px;">
+                Analyze your password
+            </p>
+
+            <div class="field-group">
+                <label>Password</label>
+                <input type="password" id="pw-input"
+                    placeholder="Enter a password"
+                    oninput="checkPassword(this.value)">
+            </div>
+
+            <div class="pw-meter">
+                <div class="pw-bar" id="pw-bar"></div>
+            </div>
+
+            <p class="pw-label" id="pw-label">—</p>
+
+            <div class="pw-results" id="pw-results"></div>
+
+        </div>
+
+    </div>
+
+    <!-- ENCRYPTION -->
+
+    <div class="tool-panel" id="tab-encryption">
+
+        <div class="auth-box" style="max-width:560px; margin:0 auto;">
+
+            <h2 style="font-style:italic; font-weight:300; margin-bottom:8px;">
+                Text Encryption
+            </h2>
+
+            <p style="color:#555; font-size:12px; letter-spacing:2px;
+                text-transform:uppercase; margin-bottom:30px;">
+                Encrypt and decrypt messages
+            </p>
+
+            <div class="field-group">
+                <label>Secret Key</label>
+                <input type="text" id="enc-key" placeholder="Enter a secret key">
+            </div>
+
+            <div class="field-group">
+                <label>Message</label>
+                <textarea id="enc-input" placeholder="Enter text to encrypt or decrypt"
+                    style="width:100%; background:transparent; border:1px solid #1a1a1a;
+                    color:white; padding:12px 16px; font-size:14px; outline:none;
+                    font-family:Arial,sans-serif; resize:vertical; min-height:100px;
+                    transition:border-color 0.3s;">
+                </textarea>
+            </div>
+
+            <div style="display:flex; gap:10px;">
+                <button onclick="encryptText()" style="flex:1; margin-top:0;">
+                    Encrypt
+                </button>
+                <button onclick="decryptText()" style="flex:1; margin-top:0;">
+                    Decrypt
+                </button>
+            </div>
+
+            <div class="field-group" style="margin-top:20px;">
+                <label>Output</label>
+                <textarea id="enc-output" readonly placeholder="Result appears here..."
+                    style="width:100%; background:#050505; border:1px solid #1a1a1a;
+                    color:#aaa; padding:12px 16px; font-size:13px; outline:none;
+                    font-family:monospace; resize:vertical; min-height:100px;">
+                </textarea>
+            </div>
+
+            <button onclick="copyOutput()" style="margin-top:0; width:100%;">
+                Copy Output
+            </button>
+
+        </div>
+
+    </div>
+
+    <!-- PORT SCANNER -->
+
+    <div class="tool-panel" id="tab-portscan">
+
+        <div class="auth-box" style="max-width:560px; margin:0 auto;">
+
+            <h2 style="font-style:italic; font-weight:300; margin-bottom:8px;">
+                Port Scanner
+            </h2>
+
+            <p style="color:#555; font-size:12px; letter-spacing:2px;
+                text-transform:uppercase; margin-bottom:30px;">
+                Scan common ports on any host
+            </p>
+
+            <div class="field-group">
+                <label>Host / IP Address</label>
+                <input type="text" id="scan-host"
+                    placeholder="e.g. scanme.nmap.org or 127.0.0.1">
+            </div>
+
+            <button onclick="runScan()" id="scan-btn" style="width:100%; margin-top:0;">
+                Start Scan
+            </button>
+
+            <div id="scan-results" style="margin-top:30px;"></div>
+
+        </div>
+
+    </div>
+
+</section>
+
+<script>
+// TAB SWITCHING
+function switchTab(tab) {
+    document.querySelectorAll('.tool-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// PASSWORD CHECKER
+function checkPassword(pw) {
+    const bar = document.getElementById('pw-bar');
+    const label = document.getElementById('pw-label');
+    const results = document.getElementById('pw-results');
+
+    let score = 0;
+    let checks = [];
+
+    if (pw.length >= 8)  { score++; checks.push(['Length 8+', true]); }
+    else { checks.push(['Length 8+', false]); }
+
+    if (pw.length >= 12) { score++; checks.push(['Length 12+', true]); }
+    else { checks.push(['Length 12+', false]); }
+
+    if (/[A-Z]/.test(pw)) { score++; checks.push(['Uppercase letter', true]); }
+    else { checks.push(['Uppercase letter', false]); }
+
+    if (/[a-z]/.test(pw)) { score++; checks.push(['Lowercase letter', true]); }
+    else { checks.push(['Lowercase letter', false]); }
+
+    if (/[0-9]/.test(pw)) { score++; checks.push(['Number', true]); }
+    else { checks.push(['Number', false]); }
+
+    if (/[^A-Za-z0-9]/.test(pw)) { score++; checks.push(['Special character', true]); }
+    else { checks.push(['Special character', false]); }
+
+    const percent = (score / 6) * 100;
+    bar.style.width = percent + '%';
+
+    if (score <= 2) {
+        bar.style.background = '#c0392b';
+        label.textContent = 'Weak';
+        label.style.color = '#c0392b';
+    } else if (score <= 4) {
+        bar.style.background = '#e67e22';
+        label.textContent = 'Moderate';
+        label.style.color = '#e67e22';
+    } else {
+        bar.style.background = '#27ae60';
+        label.textContent = 'Strong';
+        label.style.color = '#27ae60';
+    }
+
+    results.innerHTML = checks.map(([text, pass]) => `
+        <div class="pw-check">
+            <span class="${pass ? 'check-pass' : 'check-fail'}">
+                ${pass ? '✓' : '✗'}
+            </span>
+            ${text}
+        </div>
+    `).join('');
+}
+
+// ENCRYPTION (XOR — simple, no backend needed)
+function xorEncrypt(text, key) {
+    let result = '';
+    for (let i = 0; i < text.length; i++) {
+        result += String.fromCharCode(
+            text.charCodeAt(i) ^ key.charCodeAt(i % key.length)
+        );
+    }
+    return result;
+}
+
+function encryptText() {
+    const key = document.getElementById('enc-key').value;
+    const text = document.getElementById('enc-input').value;
+    if (!key || !text) return;
+    const encrypted = xorEncrypt(text, key);
+    document.getElementById('enc-output').value = btoa(encrypted);
+}
+
+function decryptText() {
+    const key = document.getElementById('enc-key').value;
+    const text = document.getElementById('enc-input').value;
+    if (!key || !text) return;
+    try {
+        const decoded = atob(text);
+        document.getElementById('enc-output').value = xorEncrypt(decoded, key);
+    } catch {
+        document.getElementById('enc-output').value = 'Invalid encrypted text.';
+    }
+}
+
+function copyOutput() {
+    const output = document.getElementById('enc-output');
+    navigator.clipboard.writeText(output.value);
+}
+
+// PORT SCANNER
+async function runScan() {
+    const host = document.getElementById('scan-host').value.trim();
+    const btn = document.getElementById('scan-btn');
+    const results = document.getElementById('scan-results');
+
+    if (!host) return;
+
+    btn.textContent = 'Scanning...';
+    btn.disabled = true;
+    results.innerHTML = '<p style="color:#555; font-size:13px;">Scanning ports...</p>';
+
+    try {
+        const res = await fetch('/tools/portscan/', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken') },
+            body: JSON.stringify({ host })
+        });
+
+        const data = await res.json();
+
+        if (!data.success) {
+            results.innerHTML = `<p style="color:#c0392b; font-size:13px;">
+                ${data.error}</p>`;
+        } else {
+            const open = data.results.filter(r => r.open);
+            const closed = data.results.filter(r => !r.open);
+
+            results.innerHTML = `
+                <p style="font-size:12px; letter-spacing:2px; color:#555;
+                    text-transform:uppercase; margin-bottom:16px;">
+                    IP: ${data.ip} — ${open.length} open ports
+                </p>
+                ${data.results.map(r => `
+                    <div class="port-row ${r.open ? 'port-open' : 'port-closed'}">
+                        <span class="port-num">${r.port}</span>
+                        <span class="port-service">${r.service}</span>
+                        <span class="port-status">
+                            ${r.open ? 'OPEN' : 'CLOSED'}
+                        </span>
+                    </div>
+                `).join('')}
+            `;
+        }
+    } catch {
+        results.innerHTML = '<p style="color:#c0392b; font-size:13px;">Scan failed.</p>';
+    }
+
+    btn.textContent = 'Start Scan';
+    btn.disabled = false;
+}
+
+function getCookie(name) {
+    const value = `; ${document.cookie}`;
+    const parts = value.split(`; ${name}=`);
+    if (parts.length === 2) return parts.pop().split(';').shift();
+}
+</script>
+
+{% endblock %}

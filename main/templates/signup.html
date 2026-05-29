@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-box">
+
+        <h1>Create Account</h1>
+        <p class="auth-sub">Join SecureLynk</p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="field-group">
+                    <label>{{ field.label }}</label>
+
+                    {% if field.html_name == 'password1' or field.html_name == 'password2' %}
+                        <div class="pw-input-wrap">
+                            {{ field }}
+                            <span class="pw-toggle" onclick="togglePw(this)">Show</span>
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <span class="field-error">{{ field.errors|join:", " }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Create Account</button>
+
+        </form>
+
+        <p class="auth-switch">
+            Already have an account?
+            <a href="{% url 'login' %}">Login</a>
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}

@@ -1,0 +1,92 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="tools-section">
+
+    <div class="tools-header">
+        <h1>Dashboard</h1>
+        <p class="auth-sub">Welcome back, {{ user.username|upper }}</p>
+    </div>
+
+    <!-- ACCOUNT INFO -->
+
+    <div class="dash-grid">
+
+        <div class="dash-card">
+            <p class="dash-label">Username</p>
+            <p class="dash-value">{{ user.username }}</p>
+        </div>
+
+        <div class="dash-card">
+            <p class="dash-label">Email</p>
+            <p class="dash-value">{{ user.email|default:"Not set" }}</p>
+        </div>
+
+        <div class="dash-card">
+            <p class="dash-label">Member Since</p>
+            <p class="dash-value">{{ user.date_joined|date:"M d, Y" }}</p>
+        </div>
+
+        <div class="dash-card">
+            <p class="dash-label">Last Login</p>
+            <p class="dash-value">{{ user.last_login|date:"M d, Y" }}</p>
+        </div>
+
+        <div class="dash-card">
+            <p class="dash-label">Status</p>
+            <p class="dash-value" style="color:#27ae60;">Active</p>
+        </div>
+
+        <div class="dash-card">
+            <p class="dash-label">Admin</p>
+            <p class="dash-value">
+                {% if user.is_staff %}Yes{% else %}No{% endif %}
+            </p>
+        </div>
+
+    </div>
+
+    <!-- CONTACT SUBMISSIONS -->
+
+    <div class="dash-section-title">
+        <p class="auth-sub">Contact Submissions</p>
+    </div>
+
+    {% if contacts %}
+
+        <div class="submissions-table">
+
+            <div class="table-header">
+                <span>Name</span>
+                <span>Email</span>
+                <span>Message</span>
+                <span>Date</span>
+            </div>
+
+            {% for contact in contacts %}
+                <div class="table-row">
+                    <span>{{ contact.name }}</span>
+                    <span style="color:#555;">{{ contact.email }}</span>
+                    <span style="color:#555;">
+                        {{ contact.message|truncatechars:60 }}
+                    </span>
+                    <span style="color:#444;">
+                        {{ contact.created_at|date:"M d, Y" }}
+                    </span>
+                </div>
+            {% endfor %}
+
+        </div>
+
+    {% else %}
+
+        <div class="dash-empty">
+            <p>No contact submissions yet.</p>
+        </div>
+
+    {% endif %}
+
+</section>
+
+{% endblock %}

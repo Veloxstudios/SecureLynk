@@ -1,0 +1,66 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-box" style="max-width: 560px;">
+
+        {% if success %}
+
+            <h1>Sent.</h1>
+            <p class="auth-sub">We'll be in touch shortly</p>
+
+            <p style="color:#555; font-size:13px; margin-top:30px; line-height:1.8;">
+                Your message was received. A member of the
+                SecureLynk team will respond within 24 hours.
+            </p>
+
+            <a href="{% url 'contact' %}">
+                <button style="margin-top:30px;">Send Another</button>
+            </a>
+
+        {% else %}
+
+            <h1>Contact</h1>
+            <p class="auth-sub">Connect with security experts</p>
+
+            <form method="POST">
+
+                {% csrf_token %}
+
+                <div class="field-group">
+                    <label>Name</label>
+                    {{ form.name }}
+                    {% if form.name.errors %}
+                        <span class="field-error">{{ form.name.errors|join:", " }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="field-group">
+                    <label>Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span class="field-error">{{ form.email.errors|join:", " }}</span>
+                    {% endif %}
+                </div>
+
+                <div class="field-group">
+                    <label>Message</label>
+                    {{ form.message }}
+                    {% if form.message.errors %}
+                        <span class="field-error">{{ form.message.errors|join:", " }}</span>
+                    {% endif %}
+                </div>
+
+                <button type="submit">Send Message</button>
+
+            </form>
+
+        {% endif %}
+
+    </div>
+
+</section>
+
+{% endblock %}

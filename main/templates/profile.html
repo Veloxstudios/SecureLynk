@@ -1,0 +1,114 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="tools-section">
+
+    <div class="tools-header">
+        <h1>Profile</h1>
+        <p class="auth-sub">Manage your account</p>
+    </div>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:1px;
+        background:#111; border:1px solid #111; max-width:900px; margin:0 auto;">
+
+        <!-- UPDATE PROFILE -->
+
+        <div style="padding:50px 40px; background:#000;">
+
+            <h2 style="font-style:italic; font-weight:300;
+                font-size:24px; margin-bottom:8px;">
+                Account Info
+            </h2>
+
+            <p class="auth-sub" style="margin-bottom:30px;">
+                Update your details
+            </p>
+
+            {% if profile_success %}
+                <p style="font-size:12px; letter-spacing:2px; color:#27ae60;
+                    text-transform:uppercase; margin-bottom:20px;">
+                    Profile updated.
+                </p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% for field in profile_form %}
+                    <div class="field-group">
+                        <label>{{ field.label }}</label>
+                        {{ field }}
+                        {% if field.errors %}
+                            <span class="field-error">
+                                {{ field.errors|join:", " }}
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" name="update_profile"
+                    style="width:100%; margin-top:10px;">
+                    Save Changes
+                </button>
+
+            </form>
+
+        </div>
+
+        <!-- CHANGE PASSWORD -->
+
+        <div style="padding:50px 40px; background:#000;
+            border-left:1px solid #111;">
+
+            <h2 style="font-style:italic; font-weight:300;
+                font-size:24px; margin-bottom:8px;">
+                Change Password
+            </h2>
+
+            <p class="auth-sub" style="margin-bottom:30px;">
+                Update your password
+            </p>
+
+            {% if password_success %}
+                <p style="font-size:12px; letter-spacing:2px; color:#27ae60;
+                    text-transform:uppercase; margin-bottom:20px;">
+                    Password changed.
+                </p>
+            {% endif %}
+
+            <form method="POST">
+                {% csrf_token %}
+
+                {% for field in password_form %}
+                    <div class="field-group">
+                        <label>{{ field.label }}</label>
+
+                        <div class="pw-input-wrap">
+                            {{ field }}
+                            <span class="pw-toggle"
+                                onclick="togglePw(this)">Show</span>
+                        </div>
+
+                        {% if field.errors %}
+                            <span class="field-error">
+                                {{ field.errors|join:", " }}
+                            </span>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+
+                <button type="submit" name="change_password"
+                    style="width:100%; margin-top:10px;">
+                    Change Password
+                </button>
+
+            </form>
+
+        </div>
+
+    </div>
+
+</section>
+
+{% endblock %}

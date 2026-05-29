@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<section class="auth-section">
+
+    <div class="auth-box">
+
+        <h1>Login</h1>
+        <p class="auth-sub">Access your account</p>
+
+        <form method="POST">
+
+            {% csrf_token %}
+
+            {% for field in form %}
+                <div class="field-group">
+                    <label>{{ field.label }}</label>
+
+                    {% if field.html_name == 'password' %}
+                        <div class="pw-input-wrap">
+                            {{ field }}
+                            <span class="pw-toggle" onclick="togglePw(this)">Show</span>
+                        </div>
+                    {% else %}
+                        {{ field }}
+                    {% endif %}
+
+                    {% if field.errors %}
+                        <span class="field-error">{{ field.errors|join:", " }}</span>
+                    {% endif %}
+                </div>
+            {% endfor %}
+
+            <button type="submit">Login</button>
+
+        </form>
+
+        <p class="auth-switch">
+            No account?
+            <a href="{% url 'signup' %}">Sign Up</a>
+        </p>
+
+    </div>
+
+</section>
+
+{% endblock %}
