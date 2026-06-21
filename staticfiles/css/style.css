@@ -201,6 +201,264 @@ button:hover {
 .card:nth-child(5) { animation-delay: 0.5s; }
 .card:nth-child(6) { animation-delay: 0.6s; }
 
+/* HOME — HERO BUTTONS */
+
+.hero-buttons {
+    display: flex;
+    gap: 18px;
+    margin-top: 35px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.hero-buttons a {
+    text-decoration: none;
+}
+
+.hero-buttons button {
+    margin-top: 0;
+}
+
+.hero-buttons a:nth-child(2) button {
+    animation-delay: 0.4s;
+}
+
+/* HOME — INTRO */
+
+.intro {
+    padding: 70px 80px 20px;
+    text-align: center;
+}
+
+.intro p {
+    max-width: 700px;
+    margin: 0 auto;
+    color: #888;
+    font-size: 15px;
+    line-height: 1.8;
+}
+
+/* HOME — SERVICE CARD LINKS */
+
+.card-link {
+    text-decoration: none;
+    color: inherit;
+    display: block;
+}
+
+/* HOME — SERVICES CTA */
+
+.services-cta {
+    text-align: center;
+    padding: 50px 80px 90px;
+    border-bottom: 1px solid #111;
+}
+
+.services-cta p {
+    color: #555;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* HOME — FINAL CTA */
+
+.final-cta {
+    text-align: center;
+    padding: 100px 80px;
+}
+
+.final-cta h2 {
+    font-size: 36px;
+    font-style: italic;
+    font-weight: 300;
+    margin-bottom: 14px;
+}
+
+.final-cta p {
+    color: #555;
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+/* ABOUT — APPROACH GRID */
+
+.approach-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: #111;
+    border: 1px solid #111;
+}
+
+.approach-card {
+    padding: 40px 30px;
+    background: #000;
+    transition: background 0.3s;
+}
+
+.approach-card:hover {
+    background: #050505;
+}
+
+.step-num {
+    font-size: 13px;
+    color: #444;
+    letter-spacing: 2px;
+    margin-bottom: 16px;
+    font-family: monospace;
+}
+
+.approach-card h3 {
+    font-size: 15px;
+    font-weight: 400;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+}
+
+.approach-card p {
+    font-size: 13px;
+    color: #555;
+    line-height: 1.7;
+}
+
+/* SERVICES PAGE — QUICK NAV */
+
+.services-quicknav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1px;
+    background: #111;
+    border-top: 1px solid #111;
+    border-bottom: 1px solid #111;
+    position: sticky;
+    top: 73px;
+    z-index: 90;
+}
+
+.services-quicknav a {
+    padding: 16px 22px;
+    background: #000;
+    color: #555;
+    text-decoration: none;
+    font-size: 11px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    transition: color 0.3s, background 0.3s;
+}
+
+.services-quicknav a:hover {
+    color: white;
+    background: #050505;
+}
+
+/* SERVICES PAGE — CATEGORY SECTIONS */
+
+.service-category {
+    padding: 70px 80px;
+    border-bottom: 1px solid #111;
+}
+
+.service-category:last-child {
+    border-bottom: none;
+}
+
+.category-label {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #444;
+    margin-bottom: 10px;
+}
+
+.category-title {
+    font-size: 30px;
+    font-style: italic;
+    font-weight: 300;
+    letter-spacing: 1px;
+    margin-bottom: 35px;
+}
+
+.chip-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.chip {
+    padding: 12px 20px;
+    border: 1px solid #1a1a1a;
+    background: #000;
+    color: #888;
+    font-size: 13px;
+    letter-spacing: 0.3px;
+    cursor: default;
+    transition: border-color 0.3s, color 0.3s, background 0.3s;
+    animation: fadeUp 0.5s ease both;
+}
+
+.chip:hover {
+    border-color: #444;
+    color: white;
+    background: #050505;
+}
+
+.service-category.industries {
+    background: #030303;
+}
+
+.service-category.industries .chip {
+    color: #aaa;
+}
+
+/* SERVICES PAGE — CATEGORY DESCRIPTION */
+
+.category-desc {
+    font-size: 14px;
+    color: #777;
+    line-height: 1.7;
+    max-width: 680px;
+    margin-bottom: 30px;
+}
+
+/* SERVICES PAGE — AI CARD GRID */
+
+.ai-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1px;
+    background: #111;
+    border: 1px solid #111;
+}
+
+.ai-card {
+    padding: 28px 30px;
+    background: #000;
+    transition: background 0.3s;
+}
+
+.ai-card:hover {
+    background: #050505;
+}
+
+.ai-card h3 {
+    font-size: 14px;
+    font-weight: 400;
+    letter-spacing: 0.5px;
+    margin-bottom: 8px;
+    color: white;
+}
+
+.ai-card p {
+    font-size: 12px;
+    color: #666;
+    line-height: 1.6;
+}
+
 /* ANIMATIONS */
 
 @keyframes fadeUp {
@@ -600,6 +858,40 @@ footer {
 
     .services { grid-template-columns: 1fr; }
     .card { padding: 30px 24px; }
+
+    .hero-buttons { flex-direction: column; align-items: center; width: 100%; }
+    .hero-buttons button { width: 100%; }
+
+    .intro { padding: 40px 24px 10px; }
+    .intro p { font-size: 14px; }
+
+    .services-cta { padding: 30px 24px 50px; }
+
+    .final-cta { padding: 60px 24px; }
+    .final-cta h2 { font-size: 26px; }
+
+    .approach-grid { grid-template-columns: 1fr; }
+    .approach-card { padding: 26px 22px; }
+
+    .services-quicknav {
+        position: static;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+    }
+
+    .services-quicknav a {
+        flex: 1 1 auto;
+        text-align: center;
+        padding: 14px 12px;
+        font-size: 10px;
+    }
+
+    .service-category { padding: 40px 24px; }
+    .category-title { font-size: 22px; }
+    .chip { padding: 10px 16px; font-size: 12px; }
+    .category-desc { font-size: 13px; }
+    .ai-grid { grid-template-columns: 1fr; }
+    .ai-card { padding: 22px 20px; }
 
     .tools-section { padding: 40px 24px; }
     .tools-header h1 { font-size: 36px; }

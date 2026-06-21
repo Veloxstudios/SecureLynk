@@ -4,58 +4,98 @@
 
 <section class="hero">
 
-    <h1>
-        SecureLynk
-    </h1>
+    <h1>SecureLynk</h1>
 
+    <p>Digital Solutions &amp; Cybersecurity</p>
+
+    <div class="hero-buttons">
+        <a href="{% url 'contact' %}"><button>Get Protected</button></a>
+    </div>
+
+</section>
+
+<section class="intro">
     <p>
-        CONNECTING SECURITY
+        SecureLynk helps businesses build, secure, and scale their digital
+        presence &mdash; from cybersecurity and cloud infrastructure to
+        custom software, mobile apps, and AI-powered automation.
     </p>
-
-    <button>
-        Get Protected
-    </button>
-
 </section>
 
 <section class="services">
 
-    <div class="card">
+    <a class="card-link" href="{% url 'services' %}#cybersecurity">
+        <div class="card">
+            <h2>Cybersecurity</h2>
+            <p>Risk assessments, audits, and 24/7 threat monitoring.</p>
+        </div>
+    </a>
 
-        <h2>
-            Network Security
-        </h2>
+    <a class="card-link" href="{% url 'services' %}#web-development">
+        <div class="card">
+            <h2>Website Development</h2>
+            <p>Business sites, online stores, and web apps.</p>
+        </div>
+    </a>
 
-        <p>
-            Protect infrastructure.
-        </p>
+    <a class="card-link" href="{% url 'services' %}#mobile-apps">
+        <div class="card">
+            <h2>Mobile App Development</h2>
+            <p>Native and cross-platform apps for iOS and Android.</p>
+        </div>
+    </a>
 
+    <a class="card-link" href="{% url 'services' %}#software">
+        <div class="card">
+            <h2>Software Development</h2>
+            <p>Custom CRM, ERP, and internal business systems.</p>
+        </div>
+    </a>
+
+    <a class="card-link" href="{% url 'services' %}#cloud-it">
+        <div class="card">
+            <h2>Cloud &amp; IT Services</h2>
+            <p>Migration, infrastructure setup, and ongoing support.</p>
+        </div>
+    </a>
+
+    <a class="card-link" href="{% url 'services' %}#ai-automation">
+        <div class="card">
+            <h2>AI &amp; Automation</h2>
+            <p>Chatbots, virtual assistants, and workflow automation.</p>
+        </div>
+    </a>
+
+</section>
+
+<section class="services-cta">
+    <p>11 categories. 100+ solutions.</p>
+    <a href="{% url 'services' %}"><button>View All Services</button></a>
+</section>
+
+<section class="dash-grid">
+
+    <div class="dash-card">
+        <p class="dash-label">Service Categories</p>
+        <p class="dash-value">11</p>
     </div>
 
-    <div class="card">
-
-        <h2>
-            Threat Detection
-        </h2>
-
-        <p>
-            Monitor cyber threats.
-        </p>
-
+    <div class="dash-card">
+        <p class="dash-label">Solutions Offered</p>
+        <p class="dash-value">127+</p>
     </div>
 
-    <div class="card">
-
-        <h2>
-            Cloud Protection
-        </h2>
-
-        <p>
-            Secure cloud systems.
-        </p>
-
+    <div class="dash-card">
+        <p class="dash-label">Industries Served</p>
+        <p class="dash-value">10</p>
     </div>
 
+</section>
+
+<section class="final-cta">
+    <h2>Ready to secure and grow your business?</h2>
+    <p>Let's talk about what SecureLynk can build for you.</p>
+    <a href="{% url 'contact' %}"><button>Get in Touch</button></a>
 </section>
 
 {% endblock %}
